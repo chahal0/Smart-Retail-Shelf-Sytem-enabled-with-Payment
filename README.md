@@ -50,6 +50,14 @@ Modern retail systems struggle with:
 <img width="1600" height="800" alt="image" src="https://github.com/user-attachments/assets/c4374957-dcfb-41a3-b9e4-6e47feeac002" />
 <img width="1600" height="786" alt="image" src="https://github.com/user-attachments/assets/3baa4ff5-bb83-4da8-a312-2d3398b1fe33" />
 <img width="1600" height="802" alt="image" src="https://github.com/user-attachments/assets/4e874e47-56ae-4d35-bdcd-c2af887cfe99" />
+<img width="1563" height="674" alt="image" src="https://github.com/user-attachments/assets/6476d90a-1155-4fd2-8f64-ee4bb1857dff" />
+<img width="1468" height="665" alt="image" src="https://github.com/user-attachments/assets/04d074d0-c83d-4cf7-ac0c-70ead2bff4fe" />
+<img width="1504" height="648" alt="image" src="https://github.com/user-attachments/assets/e4b9f7d3-4d37-41c8-9341-055820c37dbf" />
+<img width="1618" height="691" alt="image" src="https://github.com/user-attachments/assets/2a3b8eb9-e191-417f-af2c-c01302abd56b" />
+
+
+
+
 ###DEMO LINK
 https://drive.google.com/file/d/1ZB9BKydZvmDW3962V26fxfhq3IBixPcX/view?usp=drive_link
 
