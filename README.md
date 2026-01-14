@@ -46,6 +46,12 @@ Modern retail systems struggle with:
 - HTML
 - CSS
 - JavaScript (Templates-based rendering)
+###SCREENSHOTS
+<img width="1600" height="800" alt="image" src="https://github.com/user-attachments/assets/c4374957-dcfb-41a3-b9e4-6e47feeac002" />
+<img width="1600" height="786" alt="image" src="https://github.com/user-attachments/assets/3baa4ff5-bb83-4da8-a312-2d3398b1fe33" />
+<img width="1600" height="802" alt="image" src="https://github.com/user-attachments/assets/4e874e47-56ae-4d35-bdcd-c2af887cfe99" />
+###DEMO LINK
+https://drive.google.com/file/d/1ZB9BKydZvmDW3962V26fxfhq3IBixPcX/view?usp=drive_link
 
 ### Database
 - SQLite (can be extended to PostgreSQL)
