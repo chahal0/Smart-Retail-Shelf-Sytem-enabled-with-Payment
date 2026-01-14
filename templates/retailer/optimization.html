@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .optimization-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .optimization-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .optimization-header h1 {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+    }
+
+    .optimization-header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .table-wrapper {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+    }
+
+    .opt-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    .opt-table th {
+        text-align: left;
+        padding: 15px;
+        color: #4a5568;
+        font-weight: 600;
+        border-bottom: 2px solid #e2e8f0;
+        background-color: #f7fafc;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+    }
+
+    .opt-table td {
+        padding: 15px;
+        border-bottom: 1px solid #edf2f7;
+        color: #2d3748;
+        vertical-align: middle;
+    }
+
+    .opt-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .opt-table tr:hover {
+        background-color: #f8fafc;
+        transition: background-color 0.2s ease;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #2b6cb0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .priority-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .priority-high {
+        background-color: #c6f6d5;
+        color: #22543d;
+    }
+
+    .priority-med {
+        background-color: #feebc8;
+        color: #744210;
+    }
+
+    .priority-low {
+        background-color: #fed7d7;
+        color: #822727;
+    }
+
+    .avg-score {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .rank-1 {
+        color: #d69e2e;
+    }
+
+    /* Gold */
+    .rank-2 {
+        color: #718096;
+    }
+
+    /* Silver */
+    .rank-3 {
+        color: #b7791f;
+    }
+
+    /* Bronze */
+</style>
+
+<section class="container" style="padding: 4rem 1rem;">
+    <div class="optimization-container">
+        <div class="optimization-header">
+            <h1>Product Placement Optimization</h1>
+            <p>AI-driven priority analysis based on Profit, Sales Velocity, and Seasonal Trends.</p>
+        </div>
+
+        <div class="table-wrapper">
+            {% if products %}
+            <table class="opt-table">
+                <thead>
+                    <tr>
+                        <th width="30%">Product Name</th>
+                        <th width="15%" title="Based on profit margin">Profit Priority</th>
+                        <th width="15%" title="Based on sales volume">Sales Priority</th>
+                        <th width="15%" title="Based on current season trends">Seasonal Priority</th>
+                        <th width="25%" title="Combined weighted score">Optimized Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>
+                            <div class="product-name">
+                                {% if forloop.counter == 1 %}
+                                <span class="rank-1">★</span>
+                                {% elif forloop.counter == 2 %}
+                                <span class="rank-2">★</span>
+                                {% elif forloop.counter == 3 %}
+                                <span class="rank-3">★</span>
+                                {% endif %}
+                                {{ product.name }}
+                            </div>
+                        </td>
+                        <td>
+                            <span
+                                class="priority-badge {% if product.profit_priority <= 3 %}priority-high{% elif product.profit_priority <= 7 %}priority-med{% else %}priority-low{% endif %}">
+                                {{ product.profit_priority }}
+                            </span>
+                        </td>
+                        <td>
+                            <span
+                                class="priority-badge {% if product.most_sold_priority <= 3 %}priority-high{% elif product.most_sold_priority <= 7 %}priority-med{% else %}priority-low{% endif %}">
+                                {{ product.most_sold_priority }}
+                            </span>
+                        </td>
+                        <td>
+                            <span
+                                class="priority-badge {% if product.seasonal_priority <= 3 %}priority-high{% elif product.seasonal_priority <= 7 %}priority-med{% else %}priority-low{% endif %}">
+                                {{ product.seasonal_priority }}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div
+                                    style="flex-grow: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                                    {# Assuming max rank is around 15. Inverting so Rank 1 is full. #}
+                                    <div
+                                        style="width: calc(100% - ({{ product.average_value }} * 7%)); height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);">
+                                    </div>
+                                </div>
+                                <span class="avg-score">#{{ product.average_value }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="text-align: center; padding: 4rem;">
+                <p>No optimization data available.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{% url 'visualize_shelves' %}"
+                style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s;">
+                View 3D Shelf Visualization
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

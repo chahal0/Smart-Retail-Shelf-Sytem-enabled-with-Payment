@@ -1,78 +1,47 @@
-# 🛍️ Team Malaai – AI-Powered Retail Intelligence Platform
+# Smart Retail Shelf System - Migration to Local/Free Stack
 
-Team Malaai is an **AI-driven retail intelligence platform** designed to enhance customer experience, automate insights from reviews, and enable smarter retail operations using **Machine Learning, Computer Vision, and NLP**.
+This project has been migrated to a fully local, free-to-use stack, removing all dependency on Google paid APIs (Gemini, YouTube Data API).
 
-The system integrates multiple AI components such as **recommendation systems, sentiment analysis, object detection, and vector search** into a single scalable web application.
+## 🚀 Setup Instructions
 
----
+### 1. Prerequisites
+- **Python 3.10+** (Ensure Python is added to PATH)
+- **Ollama**: Download and install from [ollama.com](https://ollama.com).
 
-## 🎯 Problem Statement
+### 2. Environment Setup
+1. Open the project folder in a terminal.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Modern retail systems struggle with:
-- Understanding customer sentiment from large-scale reviews
-- Personalizing product recommendations
-- Managing visual data (products, shelves, customers)
-- Extracting actionable insights from unstructured data
+### 3. Run Local AI (Ollama)
+You must have Ollama running with the `llama3` model.
+Open a **separate terminal** and run:
+```bash
+ollama run llama3
+```
+*Wait until you see the chat prompt `>>>`, then you can minimize this window.*
 
-**Team Malaai** solves this by combining AI models with a robust backend architecture.
+### 4. Run the Web Application
+In your main terminal:
+```bash
+python manage.py runserver
+```
 
----
-
-## 🚀 Key Features
-
-- 🧠 **AI-based Recommendation Engine**
-- ⭐ **Customer Review & Sentiment Analysis**
-- 🖼️ **YOLO-based Object Detection**
-- 🔍 **FAISS-powered Vector Search**
-- 👤 **User Registration & Authentication**
-- 📊 **Retail Insights Dashboard**
-- ⚙️ **Modular & Scalable Architecture**
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-- Python
-- Django
-
-### AI / ML
-- Deep Neural Networks (DNN)
-- FAISS (Vector Search)
-- YOLO (Object Detection)
-- NLP for review analysis
-
-### Frontend
-- HTML
-- CSS
-- JavaScript (Templates-based rendering)
-
-### Database
-- SQLite (can be extended to PostgreSQL)
+Access the app at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
-## 🧱 Project Architecture / Folder Structure
+## 🛠 Technical Changes
 
-```text
-malaai/
-│
-├── dnn_model/          # Deep learning recommendation models
-├── faiss_index/        # Vector embeddings & FAISS indexes
-├── yolo/               # YOLO-based object detection logic
-├── yt_models/          # Pretrained AI/ML models
-│
-├── retailai/            # Core Django application
-├── regloguser/          # User registration & login module
-├── reviews/             # Review handling & sentiment analysis
-│
-├── templates/           # HTML templates
-├── static/              # CSS, JS, and static assets
-├── utils/               # Helper functions & utilities
-│
-├── manage.py            # Django entry point
-├── requirements.txt     # Python dependencies
-├── db.sqlite3           # Database
-├── create_dummy_data.py # Script to generate test data
-├── README.md            # Project documentation
-└── .gitignore           # Ignored files (env, venv, cache)
+- **AI Backend**: `utils.llm_helper` connects to `localhost:11434`.
+- **Embeddings**: `GoogleGenerativeAIEmbeddings` replaced with `OllamaEmbeddings`.
+- **YouTube**: `utils.youtube_helper` uses `yt-dlp` to fetch comments without API keys.
+- **Sentiment**: Replaced heavy Tensorflow/Keras model with lightweight `TextBlob` library (fixes installation issues and removes need for trained .h5 files).
+- **Project Structure**: Created `retailai` django project configuration to fix missing settings.
+
+## ⚠️ Notes
+- The first time you run `ollama run llama3`, it will download the model (few GBs).
+- Text generation speed depends on your local hardware (GPU recommended).
+- YouTube fetching might be slower than API but is rate-limit free and free of cost.

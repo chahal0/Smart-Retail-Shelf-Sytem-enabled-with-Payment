@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container" style="padding: 4rem 0;">
+    <h1>Sign-In</h1>
+    <p>This feature is currently under active development.</p>
+    <!-- Placeholder content -->
+    <div style="background: #fff; padding: 2rem; border-radius: 1rem; margin-top: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+        <p>Content for <strong>sign-in.html</strong> goes here.</p>
+        {% if error_message %}
+        <div style="color: red; margin-top: 1rem;">
+            Error: {{ error_message }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

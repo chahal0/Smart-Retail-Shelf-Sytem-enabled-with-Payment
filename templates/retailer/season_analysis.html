@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container" style="padding: 4rem 0;">
+    <h1>Seasonal Sales Analysis</h1>
+    <p class="subtitle">Insights into top performers and shelf optimization for every season.</p>
+
+    <div class="seasons-container">
+        {% if seasonal_data %}
+        {% for season_key, data in seasonal_data.items %}
+        <div class="season-section card">
+            <h2><i class="fa-solid fa-calendar-day"></i> {{ season_key }}</h2>
+
+            <div class="analysis-grid">
+                <div class="metric-box success">
+                    <h3><i class="fa-solid fa-arrow-trend-up"></i> Top Selling</h3>
+                    <ul>
+                        {% for p in data.top_products %}
+                        <li>{{ p }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="metric-box danger">
+                    <h3><i class="fa-solid fa-arrow-trend-down"></i> Least Selling</h3>
+                    <ul>
+                        {% for p in data.least_sold_products %}
+                        <li>{{ p }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="shelf-preview">
+                <h3>Recommended Shelf Layout</h3>
+                <div class="mini-shelf">
+                    {% for shelf_name, products in data.shelves.items %}
+                    {% for p in products %}
+                    <span class="product-badge">{{ p }}</span>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="card">
+            <p>No seasonal data available. Please ensure 'Book2.csv' exists.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .seasons-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .season-section h2 {
+        border-bottom: 2px solid #f3f4f6;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .analysis-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .metric-box {
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .metric-box.success {
+        background-color: #ecfdf5;
+        color: #065f46;
+    }
+
+    .metric-box.danger {
+        background-color: #fef2f2;
+        color: #991b1b;
+    }
+
+    .metric-box h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .metric-box ul {
+        padding-left: 1.2rem;
+    }
+
+    .mini-shelf {
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .product-badge {
+        background: white;
+        border: 1px solid #cbd5e1;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+    }
+</style>
+{% endblock %}

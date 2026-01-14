@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Smart Retail Shelf System{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Smart Retail Shelf System <span class="highlight">Reimagined</span></h1>
+        <p>Optimize your inventory, visualize shelf placement, and chat with your data using local AI.</p>
+        <div class="hero-buttons">
+            <a href="/upload" class="btn btn-primary">Get Started</a>
+            <a href="/gemini" class="btn btn-secondary">Chat with AI</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>Key Features</h2>
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-chart-line icon"></i>
+                <h3>Seasonal Trends</h3>
+                <p>Analyze sales data across Winter, Summer, Autumn, and Spring to predict demand.</p>
+                <a href="/season_analysis" class="link">View Analysis &rarr;</a>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-cubes icon"></i>
+                <h3>Shelf Visualization</h3>
+                <p>Visualize product placement and optimize shelf space for maximum profit.</p>
+                <a href="/visualize_shelves" class="link">Visualize &rarr;</a>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-robot icon"></i>
+                <h3>AI Assistant</h3>
+                <p>Ask questions about your data and get instant insights using local LLMs.</p>
+                <a href="/gemini" class="link">Chat Now &rarr;</a>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-upload icon"></i>
+                <h3>Data Upload</h3>
+                <p>Upload your CSV/Excel files to generate instant reports and dashboards.</p>
+                <a href="/upload" class="link">Upload &rarr;</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="seasons-preview">
+    <div class="container">
+        <h2>Seasonal Reports</h2>
+        <div class="grid-4">
+            <a href="/spring" class="season-card spring">
+                <span>Spring</span>
+            </a>
+            <a href="/summer" class="season-card summer">
+                <span>Summer</span>
+            </a>
+            <a href="/autumn" class="season-card autumn">
+                <span>Autumn</span>
+            </a>
+            <a href="/winter" class="season-card winter">
+                <span>Winter</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

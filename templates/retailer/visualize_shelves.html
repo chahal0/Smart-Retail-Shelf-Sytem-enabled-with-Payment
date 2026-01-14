@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="container" style="padding: 4rem 0;">
+    <h1>Shelf Optimization Visualization</h1>
+    <p class="subtitle">AI-driven product placement based on market basket analysis.</p>
+
+    <div class="grid-dashboard">
+        <!-- Optimized Shelves -->
+        <div class="card full-width">
+            <h2><i class="fa-solid fa-cubes"></i> Optimized Shelf Layout</h2>
+            <div class="shelves-container">
+                {% if shelves %}
+                {% for shelf_name, products in shelves.items %}
+                <div class="shelf">
+                    <div class="shelf-header">{{ shelf_name }}</div>
+                    <div class="shelf-products">
+                        {% for product in products %}
+                        <div class="product-item" title="{{ product }}">
+                            <i class="fa-solid fa-box"></i>
+                            <span>{{ product }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No shelf data available. Please upload data or wait for processing.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Top Selling Products -->
+        <div class="card half-width">
+            <h2><i class="fa-solid fa-trophy"></i> Top Selling Products</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Sales Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product, count in top_selling_products %}
+                    <tr>
+                        <td>{{ product }}</td>
+                        <td>{{ count }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">No data available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Frequent Itemsets -->
+        <div class="card half-width">
+            <h2><i class="fa-solid fa-link"></i> Frequently Bought Together</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Itemset</th>
+                        <th>Support</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for itemset, support in frequent_itemsets %}
+                    <tr>
+                        <td>{{ itemset|join:", " }}</td>
+                        <td>{{ support }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">No patterns found yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .grid-dashboard {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .full-width {
+        flex: 100%;
+    }
+
+    .half-width {
+        flex: 1 1 45%;
+    }
+
+    .shelves-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .shelf {
+        border: 2px solid #e5e7eb;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .shelf-header {
+        background: #4f46e5;
+        color: white;
+        padding: 0.5rem;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .shelf-products {
+        padding: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+
+    .product-item {
+        background: #f3f4f6;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80px;
+        text-align: center;
+    }
+
+    .product-item i {
+        font-size: 1.5rem;
+        color: #6b7280;
+        margin-bottom: 0.25rem;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .data-table th {
+        background: #f9fafb;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
